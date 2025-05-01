@@ -1,0 +1,81 @@
+{
+  "id": "00025",
+  "date": "2025-04-02",
+  "salesRep": "DT",
+  "customerInformation": {
+    "name": "Jane Smith",
+    "streetNumber": "452",
+    "streetName": "Corley St",
+    "cityTown": "",
+    "state": "SC",
+    "zipCode": "",
+    "plantation": "Palmetto Bluff",
+    "mobile1": "",
+    "mobile2": "",
+    "home": "",
+    "builderSuperName": "Craig",
+    "builderSuperMobile": "843-384-0250"
+  },
+  "homeDetails": {
+    "tentativeInstallDate": "",
+    "readyForInstall": false,
+    "sidingOptions": {
+      "hardie": true,
+      "stucco": false,
+      "vinyl": false,
+      "stone": false,
+      "concrete": false,
+      "color": ""
+    },
+    "trimOptions": {
+      "topAndBottom": false,
+      "allAround": true,
+      "none": false,
+      "keystone": false,
+      "headerStickOut": false,
+      "sillStickOut": false,
+      "headerFlush": false,
+      "sillFlush": false,
+      "color": ""
+    },
+    "doorDetails": {
+      "roomUnderDoor": "",
+      "concreteFloor": "",
+      "brickStoneTile": "",
+      "sillInPlace": "",
+      "brickStoneTileWithConcreteUnder": ""
+    }
+  },
+  "products": {
+    "desiredColor": {
+      "code": "SW1673",
+      "name": "Vermont Slate"
+    },
+    "options": {
+      "osb": false,
+      "galv": false,
+      "alum": false,
+      "fabric": false,
+      "accordions": false,
+      "rolldown": false,
+      "bahCol": false,
+      "lexan": false,
+      "screenUnder": false,
+      "lanaiUnder": false,
+      "poolEnclosure": false,
+      "paintedCaps": false,
+      "bahArticulating": false,
+      "decoBah": false,
+      "composite": true,
+      "compositeSpecific": "Louver",
+      "cutout": "",
+      "directMount": false,
+      "armorTrack": false,
+      "header": false,
+      "flatTrack": false
+    }
+  },
+  "measureInformation": {
+
+  }
+}
