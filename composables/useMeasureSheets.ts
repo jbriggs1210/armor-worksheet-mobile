@@ -1,5 +1,5 @@
-import measureSheetExamples from '~/assets/examples/measuresheets/examples.json';
+import measureSheetExamples from "~/assets/examples/measuresheets/examples.json";
 
-export default function() {
-    return useState<object[]>('measureSheets', () => measureSheetExamples);
+export default function(): Ref {
+    return useState<object[]>("measureSheets", () => measureSheetExamples);
 }

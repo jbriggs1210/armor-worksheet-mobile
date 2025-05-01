@@ -1,123 +1,53 @@
 <script setup lang="ts">
-import {type IonDatetimeCustomEvent} from "@ionic/core";
+import JobDataForm from "~/components/forms/job-data-form.vue";
+import type {IonButtonCustomEvent} from "@ionic/core";
+import CustomerInfoForm from "~/components/forms/customer-info-form.vue";
+import TrimOptionsForm from "~/components/forms/trim-options-form.vue";
+import HomeDetailsForm from "~/components/forms/home-details-form.vue";
+import DoorDetailsForm from "~/components/forms/door-details-form.vue";
+import ProductDetailsForm from "~/components/forms/product-details-form.vue";
 
-const blankMeasureSheet = ref({
-  id: "",
-  date: Date.now(),
-  salesRep: ""
-  /*"customerInformation": {
-    "name": "Front Light",
-    "streetNumber": "452",
-    "streetName": "Corley St",
-    "cityTown": "",
-    "state": "SC",
-    "zipCode": "",
-    "plantation": "Palmetto Bluff",
-    "mobile1": "",
-    "mobile2": "",
-    "home": "",
-    "builderSuperName": "Craig",
-    "builderSuperMobile": "843-384-0250"
-  },
-  "homeDetails": {
-    "tentativeInstallDate": "",
-    "readyForInstall": false,
-    "sidingOptions": {
-      "hardie": true,
-      "stucco": false,
-      "vinyl": false,
-      "stone": false,
-      "concrete": false,
-      "color": ""
-    },
-    "trimOptions": {
-      "topAndBottom": false,
-      "allAround": true,
-      "none": false,
-      "keystone": false,
-      "headerStickOut": false,
-      "sillStickOut": false,
-      "headerFlush": false,
-      "sillFlush": false,
-      "color": ""
-    },
-    "doorDetails": {
-      "roomUnderDoor": "",
-      "concreteFloor": "",
-      "brickStoneTile": "",
-      "sillInPlace": "",
-      "brickStoneTileWithConcreteUnder": ""
-    }
-  },
-  "products": {
-    "desiredColor": {
-      "code": "SW1673",
-      "name": "Vermont Slate"
-    },
-    "options": {
-      "osb": false,
-      "galv": false,
-      "alum": false,
-      "fabric": false,
-      "accordions": false,
-      "rolldown": false,
-      "bahCol": false,
-      "lexan": false,
-      "screenUnder": false,
-      "lanaiUnder": false,
-      "poolEnclosure": false,
-      "paintedCaps": false,
-      "bahArticulating": false,
-      "decoBah": false,
-      "composite": true,
-      "compositeSpecific": "Louver",
-      "cutout": "",
-      "directMount": false,
-      "armorTrack": false,
-      "header": false,
-      "flatTrack": false
-    }
-  },
-  "measureInformation": {
-  }*/
-});
-
-const submitDateModal = (event: IonDatetimeCustomEvent<any>) => {
-  console.debug(`submitDateModal event:`);
-  console.debug(event);
-};
-
+const currentFormPage = ref("Job Data");
 const saveMeasureSheet = () => {
-  console.log(blankMeasureSheet);
+  console.log("saveMeasureSheet");
 };
+const updateFormPage = (event: IonButtonCustomEvent<any>) => {
+  console.log("updateFormPage");
+  console.log(event.target.innerHTML);
+  currentFormPage.value = event.target.innerHTML;
+}
+
+const calculateButtonFill = (pageName: string) => {
+  console.log("calculateButtonFill");
+  const outline = "outline";
+  const solid = "solid";
+
+  return currentFormPage.value === pageName ? solid : outline;
+}
+
+const showFormComponent = (componentName: string) => {
+  return componentName === currentFormPage.value;
+}
 </script>
 <template>
   <ion-content class="ion-padding">
     <!-- form(s) / wizard for completing measure-sheet -->
     <ion-toolbar>
       <ion-buttons class="flex-container flex-row flex-center">
-        <ion-button fill="outline">Customer Info</ion-button>
-        <ion-button fill="outline">Home Details</ion-button>
-        <ion-button fill="outline">Trim Options</ion-button>
-        <ion-button fill="outline">Door Details</ion-button>
-        <ion-button fill="outline">Product Details</ion-button>
+        <ion-button :fill="calculateButtonFill('Job Data')" @click="updateFormPage($event)">Job Data</ion-button>
+        <ion-button :fill="calculateButtonFill('Customer Info')" @click="updateFormPage($event)">Customer Info</ion-button>
+        <ion-button :fill="calculateButtonFill('Home Details')" @click="updateFormPage($event)">Home Details</ion-button>
+        <ion-button :fill="calculateButtonFill('Trim Options')" @click="updateFormPage($event)">Trim Options</ion-button>
+        <ion-button :fill="calculateButtonFill('Door Details')" @click="updateFormPage($event)">Door Details</ion-button>
+        <ion-button :fill="calculateButtonFill('Product Details')" @click="updateFormPage($event)">Product Details</ion-button>
       </ion-buttons>
     </ion-toolbar>
-    <div class="flex-container flex-row flex-center">
-      <ion-item>
-        <ion-input placeholder="job id" v-model="blankMeasureSheet.id"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-datetime-button datetime="date" v-model="blankMeasureSheet.date"></ion-datetime-button>
-        <ion-popover :keep-contents-mounted="true" dismiss-on-select="true">
-          <ion-datetime presentation="date" :prefer-wheel="true" id="date"></ion-datetime>
-          <ion-button @click="submitDateModal($event)">Submit</ion-button>
-        </ion-popover>
-      </ion-item>
-      <ion-item>
-        <ion-input placeholder="Sales Rep" v-model="blankMeasureSheet.salesRep"></ion-input>
-      </ion-item>
-    </div>
+    <job-data-form v-if="showFormComponent('Job Data')"></job-data-form>
+    <customer-info-form v-else-if="showFormComponent('Customer Info')"></customer-info-form>
+    <trim-options-form v-else-if="showFormComponent('Trim Options')"></trim-options-form>
+    <home-details-form v-else-if="showFormComponent('Home Details')"></home-details-form>
+    <door-details-form v-else-if="showFormComponent('Door Details')"></door-details-form>
+    <product-details-form v-else-if="showFormComponent('Product Details')"></product-details-form>
     <div class="save-container flex-container flex-row-reverse">
       <ion-button fill="solid" @click="saveMeasureSheet">Save</ion-button>
     </div>
@@ -126,24 +56,20 @@ const saveMeasureSheet = () => {
 
 
 <style scoped>
+.flex-container {
+  display: flex;
+}
+.flex-row {
+  flex-direction: row;
+}
+.flex-center {
+  justify-content: center;
+}
 .save-container {
   max-width: 80%;
   margin: auto;
 }
-
-.flex-container {
-  display: flex;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-row-reverse {
   flex-direction: row-reverse;
-}
-
-.flex-center {
-  justify-content: center;
 }
 </style>
