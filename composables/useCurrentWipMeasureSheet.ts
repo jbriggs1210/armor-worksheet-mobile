@@ -1,6 +1,6 @@
-import type MeasureSheet from "~/types/measure-sheet";
+import type { MeasureSheet } from "~/types/measure-sheet";
 
-export default function(): Ref<MeasureSheet> {
+export default function(id?: string): Ref<MeasureSheet> {
     const measureSheet: MeasureSheet = {
         id: "",
         salesRep: "",
@@ -9,6 +9,7 @@ export default function(): Ref<MeasureSheet> {
             name: "",
             streetNumber: "",
             streetName: "",
+            lotNumber: "",
             cityTown: "",
             state: "",
             zipCode: "",
@@ -21,5 +22,5 @@ export default function(): Ref<MeasureSheet> {
         },
     };
 
-    return useState<MeasureSheet>("workInProgressMeasureSheet", () => measureSheet);
+    return useState<MeasureSheet>("currentWipMeasureSheet", () => measureSheet);
 }

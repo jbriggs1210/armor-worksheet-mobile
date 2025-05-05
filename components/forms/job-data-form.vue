@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import type {FormatOptions, IonDatetimeCustomEvent} from "@ionic/core";
-import useWorkInProgressMeasureSheet from "~/composables/useWorkInProgressMeasureSheet";
+import useWorkInProgressMeasureSheet from "~/composables/useFreshMeasureSheet";
+import type {MeasureSheet} from "~/types/measure-sheet";
+import useFreshMeasureSheet from "~/composables/useFreshMeasureSheet";
 
-const wipMeasureSheet = useWorkInProgressMeasureSheet();
-wipMeasureSheet.value.date = new Date().toISOString();
+const { sheetId } = defineProps<{ sheetId: string}>();
+const savedMeasureSheets: Ref<MeasureSheet[]> = useSavedMeasureSheets();
+const currentMeasureSheet = savedMeasureSheets.value.find(ms => sheetId && ms.id === sheetId) ?? useFreshMeasureSheet();
 
 const dateTimeFormat: FormatOptions = {
   date: {
@@ -22,7 +25,7 @@ const submitDateModal = (event: IonDatetimeCustomEvent<any>) => {
 <template>
   <div class="flex-container flex-row flex-center">
     <ion-item>
-      <ion-input placeholder="job id" v-model="wipMeasureSheet.id"></ion-input>
+      <ion-input placeholder="job id" v-model="currentMeasureSheet.id"></ion-input>
     </ion-item>
     <ion-item>
       <ion-datetime-button datetime="date"></ion-datetime-button>
@@ -32,14 +35,14 @@ const submitDateModal = (event: IonDatetimeCustomEvent<any>) => {
             :prefer-wheel="true"
             id="date"
             :format-options="dateTimeFormat"
-            v-model="wipMeasureSheet.date"
+            v-model="currentMeasureSheet.date"
             max="2050-01-01"
         ></ion-datetime>
         <ion-button @click="submitDateModal($event)">Submit</ion-button>
       </ion-popover>
     </ion-item>
     <ion-item>
-      <ion-input placeholder="Sales Rep" v-model="wipMeasureSheet.salesRep"></ion-input>
+      <ion-input placeholder="Sales Rep" v-model="currentMeasureSheet.salesRep"></ion-input>
     </ion-item>
   </div>
 </template>

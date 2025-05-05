@@ -2,6 +2,7 @@ export default interface CustomerInformation {
     name: string;
     streetNumber: string;
     streetName: string;
+    lotNumber: string;
     cityTown: string;
     state: string;
     zipCode: string;

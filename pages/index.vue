@@ -1,4 +1,6 @@
 <template>
+  <ion-page>
+  <main-header title="Armor Measure Sheets"></main-header>
   <ion-toolbar v-if="measureSheets.length > 0">
     <ion-searchbar placeholder="job # or customer name" @ionInput="handleJobIdSearch($event)"></ion-searchbar>
   </ion-toolbar>
@@ -23,11 +25,14 @@
       </ion-card>
     </div>
   </ion-content>
+  <main-footer></main-footer>
+  </ion-page>
 </template>
 
 <script setup lang="ts">
-import useMeasureSheets from "~/composables/useMeasureSheets";
+import useMeasureSheets from "~/composables/useSavedMeasureSheets";
 import type { IonSearchbarCustomEvent, SearchbarChangeEventDetail } from "@ionic/core";
+import {useIonRouter} from "@ionic/vue";
 
 const measureSheets: Ref<any[]> = ref(useMeasureSheets());
 const filterQuery: Ref<any> = ref("");
@@ -45,9 +50,11 @@ const handleJobIdSearch = (event: IonSearchbarCustomEvent<SearchbarChangeEventDe
   filterQuery.value = event.detail.value;
 };
 
+const ionRouter = useIonRouter();
 const editCard = (index: number) => {
   const element = measureSheets.value[index];
   console.debug(`Edit card with id ${element.id}`);
+  ionRouter.navigate({ path: `/measure-sheets/${element.id}` });
 };
 const deleteCard = (index: number) => {
   const element = measureSheets.value[index];
