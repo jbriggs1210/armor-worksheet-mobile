@@ -1,17 +1,17 @@
 <template>
   <ion-page>
   <main-header title="Armor Measure Sheets"></main-header>
-  <ion-toolbar v-if="measureSheets.length > 0">
+  <ion-toolbar v-if="dbMeasureSheets.length > 0">
     <ion-searchbar placeholder="job # or customer name" @ionInput="handleJobIdSearch($event)"></ion-searchbar>
   </ion-toolbar>
   <ion-content>
     <div class="flex-container flex-row">
       <ion-card v-for="(sheet, index) in filteredMeasureSheets" :key="index">
-        <ion-card-title>{{ sheet.id }}</ion-card-title>
+        <ion-card-title>{{ sheet.jobNumber || sheet.id }}</ion-card-title>
         <ion-card-subtitle>{{ sheet.date }}</ion-card-subtitle>
         <ion-card-content>
           <ion-text>
-            {{ sheet.customerInformation.name }}
+            {{ sheet.customerInformation.name || "N/A" }}
           </ion-text>
           <div>
             <ion-button size="small" @click="editCard(index)">
@@ -30,20 +30,20 @@
 </template>
 
 <script setup lang="ts">
-import useMeasureSheets from "~/composables/useSavedMeasureSheets";
 import type { IonSearchbarCustomEvent, SearchbarChangeEventDetail } from "@ionic/core";
 import {useIonRouter} from "@ionic/vue";
 import type {MeasureSheet} from "~/types/measure-sheet";
 
-const measureSheets: Ref<MeasureSheet[]> = ref(useMeasureSheets());
+const { data } = await useFetch("/api/measure-sheets");
 const filterQuery: Ref<any> = ref("");
+const dbMeasureSheets = ref(data.value) as Ref<MeasureSheet[]>;
 const filteredMeasureSheets = computed(() => {
-  return measureSheets.value.filter(measureSheet => {
+  return dbMeasureSheets.value.filter(measureSheet => {
     if (filterQuery.value === null || filterQuery.value.length === 0) {
       return true;
     }
-    return measureSheet.id.includes(filterQuery.value) ||
-        measureSheet.customerInformation.name.toUpperCase().includes(filterQuery.value.toUpperCase());
+    return measureSheet.jobNumber.includes(filterQuery.value) ||
+      measureSheet.id.toString().includes(filterQuery.value);
   });
 })
 const handleJobIdSearch = (event: IonSearchbarCustomEvent<SearchbarChangeEventDetail>) => {
@@ -53,14 +53,14 @@ const handleJobIdSearch = (event: IonSearchbarCustomEvent<SearchbarChangeEventDe
 
 const ionRouter = useIonRouter();
 const editCard = (index: number) => {
-  const element = measureSheets.value[index];
+  const element = dbMeasureSheets.value[index];
   console.debug(`Edit card with id ${element.id}`);
   ionRouter.navigate({ path: `/measure-sheets/${element.id}` });
 };
 const deleteCard = (index: number) => {
-  const element = measureSheets.value[index];
+  const element = dbMeasureSheets.value[index];
   console.debug(`Deleting card with id ${element.id}`);
-  measureSheets.value.splice(index, 1);
+  dbMeasureSheets.value.splice(index, 1);
 };
 
 const presentDeleteModalAlert = async (index: number) => {

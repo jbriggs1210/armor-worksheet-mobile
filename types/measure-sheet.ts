@@ -1,7 +1,8 @@
-import type CustomerInformation from "~/types/customer-information";
+import type { CustomerInformation } from "~/types/customer-information";
 
 export interface MeasureSheet {
-    id: string;
+    id: number;
+    jobNumber: string;
     date: string;
     salesRep: string;
     customerInformation: CustomerInformation;

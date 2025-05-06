@@ -1,4 +1,5 @@
-export default interface CustomerInformation {
+export interface CustomerInformation {
+    id: number;
     name: string;
     streetNumber: string;
     streetName: string;
@@ -12,4 +13,5 @@ export default interface CustomerInformation {
     home: string;
     builderSuperName: string;
     builderSuperMobile: string;
+    measureSheetId: number;
 }

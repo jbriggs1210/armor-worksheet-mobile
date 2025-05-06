@@ -1,10 +1,10 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
-export const measureSheetTable = sqliteTable('measure_sheet', {
+export const measureSheetTable = sqliteTable( "measureSheet", {
     id: integer().primaryKey({ autoIncrement: true}),
-    jobNumber: text("job_number").notNull().unique(),
-    name: text(),
-    salesRep: text("sales_rep"),
+    jobNumber: text().notNull().unique(),
+    date: integer(),
+    salesRep: text(),
 });
 
 export type InsertMeasureSheet = typeof measureSheetTable.$inferInsert;
