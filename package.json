@@ -16,12 +16,15 @@
     "@capacitor/ios": "7.2.0",
     "@capacitor/keyboard": "7.0.1",
     "@capacitor/status-bar": "7.0.1",
+    "@libsql/client": "^0.15.4",
     "@nuxtjs/ionic": "^0.18.0",
+    "drizzle-orm": "^0.43.1",
     "nuxt": "^3.17.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@capacitor/cli": "7.2.0"
+    "@capacitor/cli": "7.2.0",
+    "drizzle-kit": "^0.31.1"
   }
 }

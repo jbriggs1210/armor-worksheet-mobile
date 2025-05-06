@@ -6,7 +6,7 @@
   </ion-toolbar>
   <ion-content>
     <div class="flex-container flex-row">
-      <ion-card class="ion-" v-for="(sheet, index) in filteredMeasureSheets" :key="index">
+      <ion-card v-for="(sheet, index) in filteredMeasureSheets" :key="index">
         <ion-card-title>{{ sheet.id }}</ion-card-title>
         <ion-card-subtitle>{{ sheet.date }}</ion-card-subtitle>
         <ion-card-content>
@@ -33,8 +33,9 @@
 import useMeasureSheets from "~/composables/useSavedMeasureSheets";
 import type { IonSearchbarCustomEvent, SearchbarChangeEventDetail } from "@ionic/core";
 import {useIonRouter} from "@ionic/vue";
+import type {MeasureSheet} from "~/types/measure-sheet";
 
-const measureSheets: Ref<any[]> = ref(useMeasureSheets());
+const measureSheets: Ref<MeasureSheet[]> = ref(useMeasureSheets());
 const filterQuery: Ref<any> = ref("");
 const filteredMeasureSheets = computed(() => {
   return measureSheets.value.filter(measureSheet => {

@@ -5,7 +5,7 @@ import type {MeasureSheet} from "~/types/measure-sheet";
 import useFreshMeasureSheet from "~/composables/useFreshMeasureSheet";
 
 const { sheetId } = defineProps<{ sheetId: string}>();
-const savedMeasureSheets: Ref<MeasureSheet[]> = useSavedMeasureSheets();
+const savedMeasureSheets: Ref<MeasureSheet[]> = await useSavedMeasureSheets();
 const currentMeasureSheet = savedMeasureSheets.value.find(ms => sheetId && ms.id === sheetId) ?? useFreshMeasureSheet();
 
 const dateTimeFormat: FormatOptions = {

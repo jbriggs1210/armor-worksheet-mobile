@@ -43,7 +43,7 @@ const r = useRoute();
 const id: string = r.params.id as string;
 
 const currentFormPage = ref("Job Data");
-const savedMeasureSheets: Ref<MeasureSheet[]> = useSavedMeasureSheets();
+const savedMeasureSheets: Ref<MeasureSheet[]> = await useSavedMeasureSheets();
 const currentWipMeasureSheet = useCurrentWipMeasureSheet();
 const saveMeasureSheet = () => {
   console.log("saveMeasureSheet");
