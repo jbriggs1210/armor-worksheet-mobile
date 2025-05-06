@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "db": "npx drizzle-kit generate && npx drizzle-kit migrate && npx drizzle-kit studio",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -18,8 +19,10 @@
     "@capacitor/status-bar": "7.0.1",
     "@libsql/client": "^0.15.4",
     "@nuxtjs/ionic": "^0.18.0",
+    "@pinia/nuxt": "^0.11.0",
     "drizzle-orm": "^0.43.1",
     "nuxt": "^3.17.0",
+    "pinia": "^3.0.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },

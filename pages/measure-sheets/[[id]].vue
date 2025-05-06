@@ -38,6 +38,7 @@ import ProductDetailsForm from "~/components/forms/product-details-form.vue";
 import useSavedMeasureSheets from "~/composables/useSavedMeasureSheets";
 import useCurrentWipMeasureSheet from "~/composables/useCurrentWipMeasureSheet";
 import type {MeasureSheet} from "~/types/measure-sheet";
+import useFreshMeasureSheet from "~/composables/useFreshMeasureSheet";
 
 const r = useRoute();
 const id: string = r.params.id as string;

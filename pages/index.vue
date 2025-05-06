@@ -1,7 +1,7 @@
 <template>
   <ion-page>
   <main-header title="Armor Measure Sheets"></main-header>
-  <ion-toolbar v-if="dbMeasureSheets.length > 0">
+  <ion-toolbar v-if="dbMeasureSheets && dbMeasureSheets.length > 0">
     <ion-searchbar placeholder="job # or customer name" @ionInput="handleJobIdSearch($event)"></ion-searchbar>
   </ion-toolbar>
   <ion-content>

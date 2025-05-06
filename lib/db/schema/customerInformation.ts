@@ -3,6 +3,7 @@ import { measureSheetTable } from "./measureSheet";
 
 export const customerInformationTable = sqliteTable('customerInformation', {
     id: integer().primaryKey({autoIncrement: true}),
+    name: text(),
     streetNumber: text(),
     streetName: text(),
     lotNumber: text(),

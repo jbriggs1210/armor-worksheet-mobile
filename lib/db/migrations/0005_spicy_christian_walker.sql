@@ -1,0 +1,1 @@
+ALTER TABLE `customerInformation` ADD `name` text;
