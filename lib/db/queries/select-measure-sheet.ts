@@ -1,6 +1,6 @@
 import { db } from "~/lib/db";
 import { customerInformationTable, measureSheetTable } from "~/lib/db/schema";
-import { getTableColumns, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export async function selectMeasureSheets (page = 1, size = 100): Promise<Array<any>> {
 

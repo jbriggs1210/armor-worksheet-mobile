@@ -2,10 +2,12 @@ import type { MeasureSheet } from "~/types/measure-sheet";
 
 export default function(): Ref<MeasureSheet> {
     const measureSheet: MeasureSheet = {
-        id: "",
+        id: null,
+        jobNumber: "",
         salesRep: "",
         date: "",
         customerInformation: {
+            id: null,
             name: "",
             streetNumber: "",
             streetName: "",
@@ -19,6 +21,7 @@ export default function(): Ref<MeasureSheet> {
             home: "",
             builderSuperName: "",
             builderSuperMobile: "",
+            measureSheetId: null
         },
     };
 

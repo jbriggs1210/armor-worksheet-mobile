@@ -13,8 +13,8 @@
         <ion-button :fill="calculateButtonFill('Product Details')" @click="updateFormPage($event)">Product Details</ion-button>
       </ion-buttons>
     </ion-toolbar>
-    <job-data-form v-if="showFormComponent('Job Data')" :sheetId="id"></job-data-form>
-    <customer-info-form v-else-if="showFormComponent('Customer Info')" :sheetId="id"></customer-info-form>
+    <job-data-form v-if="showFormComponent('Job Data')"></job-data-form>
+    <customer-info-form v-else-if="showFormComponent('Customer Info')"></customer-info-form>
     <trim-options-form v-else-if="showFormComponent('Trim Options')"></trim-options-form>
     <home-details-form v-else-if="showFormComponent('Home Details')"></home-details-form>
     <door-details-form v-else-if="showFormComponent('Door Details')"></door-details-form>
@@ -35,22 +35,29 @@ import TrimOptionsForm from "~/components/forms/trim-options-form.vue";
 import HomeDetailsForm from "~/components/forms/home-details-form.vue";
 import DoorDetailsForm from "~/components/forms/door-details-form.vue";
 import ProductDetailsForm from "~/components/forms/product-details-form.vue";
-import useSavedMeasureSheets from "~/composables/useSavedMeasureSheets";
-import useCurrentWipMeasureSheet from "~/composables/useCurrentWipMeasureSheet";
+import {useMeasureSheetsStore} from "~/stores/measure-sheets-store";
+import {storeToRefs} from "pinia";
 import type {MeasureSheet} from "~/types/measure-sheet";
-import useFreshMeasureSheet from "~/composables/useFreshMeasureSheet";
 
 const r = useRoute();
-const id: string = r.params.id as string;
+const id: number = +r.params.id!;
+const measureSheetStore = useMeasureSheetsStore();
+const workInProgressMeasureSheet: Ref<MeasureSheet> = storeToRefs(measureSheetStore).workInProgressMeasureSheet;
+const saveWorkInProgressMeasureSheet = measureSheetStore.saveWorkInProgressMeasureSheet;
+// onMounted(() => {
+//   if (id) {
+//     useFetch<MeasureSheet>(`/api/measure-sheets/${id}`)
+//         .then(resolved => {
+//           workInProgressMeasureSheet.value = JSON.parse(JSON.stringify(resolved.data.value));
+//           console.log(workInProgressMeasureSheet);
+//         })
+//   }
+// })
 
 const currentFormPage = ref("Job Data");
-const savedMeasureSheets: Ref<MeasureSheet[]> = await useSavedMeasureSheets();
-const currentWipMeasureSheet = useCurrentWipMeasureSheet();
 const saveMeasureSheet = () => {
   console.log("saveMeasureSheet");
-  if (savedMeasureSheets.value.filter(ms => ms.id === currentWipMeasureSheet.value.id).length === 0) {
-    savedMeasureSheets.value.push(currentWipMeasureSheet.value);
-  }
+  saveWorkInProgressMeasureSheet();
 };
 const updateFormPage = (event: IonButtonCustomEvent<any>) => {
   console.log("updateFormPage");

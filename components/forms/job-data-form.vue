@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type {FormatOptions, IonDatetimeCustomEvent} from "@ionic/core";
-import useWorkInProgressMeasureSheet from "~/composables/useFreshMeasureSheet";
 import type {MeasureSheet} from "~/types/measure-sheet";
-import useFreshMeasureSheet from "~/composables/useFreshMeasureSheet";
+import {useMeasureSheetsStore} from "~/stores/measure-sheets-store";
+import {storeToRefs} from "pinia";
 
-const { sheetId } = defineProps<{ sheetId: string}>();
-const savedMeasureSheets: Ref<MeasureSheet[]> = await useSavedMeasureSheets();
-const currentMeasureSheet = savedMeasureSheets.value.find(ms => sheetId && ms.id === sheetId) ?? useFreshMeasureSheet();
-
+const measureSheetStore = useMeasureSheetsStore();
+const currentMeasureSheet: Ref<MeasureSheet> = storeToRefs(measureSheetStore).workInProgressMeasureSheet;
 const dateTimeFormat: FormatOptions = {
   date: {
     day: "2-digit",
@@ -25,7 +23,7 @@ const submitDateModal = (event: IonDatetimeCustomEvent<any>) => {
 <template>
   <div class="flex-container flex-row flex-center">
     <ion-item>
-      <ion-input placeholder="job id" v-model="currentMeasureSheet.id"></ion-input>
+      <ion-input placeholder="Job #" v-model="currentMeasureSheet.jobNumber"></ion-input>
     </ion-item>
     <ion-item>
       <ion-datetime-button datetime="date"></ion-datetime-button>
