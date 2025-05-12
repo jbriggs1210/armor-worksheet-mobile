@@ -1,13 +1,14 @@
-CREATE TABLE `measure_sheet` (
+CREATE TABLE `job_data` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`job_number` text NOT NULL,
-	`name` text,
+	`date` integer,
 	`sales_rep` text
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `measure_sheet_job_number_unique` ON `measure_sheet` (`job_number`);--> statement-breakpoint
+CREATE UNIQUE INDEX `job_data_job_number_unique` ON `job_data` (`job_number`);--> statement-breakpoint
 CREATE TABLE `customer_information` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text,
 	`street_number` text,
 	`street_name` text,
 	`lot_number` text,
@@ -20,6 +21,6 @@ CREATE TABLE `customer_information` (
 	`home` text,
 	`builder_super_name` text,
 	`builder_super_mobile` text,
-	`measure_sheet_id` integer,
-	FOREIGN KEY (`measure_sheet_id`) REFERENCES `measure_sheet`(`id`) ON UPDATE no action ON DELETE cascade
+	`job_data_id` integer,
+	FOREIGN KEY (`job_data_id`) REFERENCES `job_data`(`id`) ON UPDATE no action ON DELETE cascade
 );

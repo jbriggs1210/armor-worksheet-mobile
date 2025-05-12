@@ -1,17 +1,17 @@
 <template>
   <ion-page>
   <main-header title="Armor Measure Sheets"></main-header>
-  <ion-toolbar v-if="totalMeasureSheets > 0">
-    <ion-searchbar placeholder="job # or customer name" @ionInput="handleJobIdSearch($event)"></ion-searchbar>
+  <ion-toolbar v-if="jobData!.length > 0">
+    <ion-searchbar placeholder="job # or customer name" @ionInput=""></ion-searchbar>
   </ion-toolbar>
   <ion-content>
     <div class="flex-container flex-row">
-      <ion-card v-for="(sheet, index) in filteredMeasureSheets" :key="index">
-        <ion-card-title>{{ sheet.jobNumber || sheet.id }}</ion-card-title>
-        <ion-card-subtitle>{{ sheet.date }}</ion-card-subtitle>
+      <ion-card v-for="(jd, index) in jobData" :key="index">
+        <ion-card-title>{{ jd.jobNumber || jd.id }}</ion-card-title>
+        <ion-card-subtitle>{{ jd.date }}</ion-card-subtitle>
         <ion-card-content>
           <ion-text>
-            {{ sheet.customerInformation.name }}
+            customer name
           </ion-text>
           <div>
 <!--            <ion-button size="small" @click="editCard(index)">-->
@@ -34,19 +34,37 @@ import type { IonSearchbarCustomEvent, SearchbarChangeEventDetail } from "@ionic
 import {useIonRouter} from "@ionic/vue";
 import { useMeasureSheetsStore } from "~/stores/measure-sheets-store";
 import type {MeasureSheet} from "~/types/measure-sheet";
+import {
+  type SelectCustomerInformationType,
+  SelectJobData, type SelectJobDataType,
+  type SelectJobDataWithCustomerInfoType
+} from "~/lib/db/schema";
 
-const measureSheetsStore = useMeasureSheetsStore();
-const totalMeasureSheets: Ref<number> = storeToRefs(measureSheetsStore).totalMeasureSheets;
-const measureSheetsFilter: Ref<string> = storeToRefs(measureSheetsStore).measureSheetsFilter;
-const filteredMeasureSheets: Ref<MeasureSheet[]> = storeToRefs(measureSheetsStore).filteredMeasureSheets;
+const { data: jobData } = await useFetch("/api/measure-sheets/job-data");
 
-const handleJobIdSearch = (event: IonSearchbarCustomEvent<SearchbarChangeEventDetail>) => {
-  if (event!.detail!.value !== undefined) {
-    measureSheetsFilter.value = event!.detail!.value!.valueOf();
-  } else {
-    measureSheetsFilter.value = "";
-  }
-};
+// const measureSheets = data.value;
+// const totalMeasureSheets = computed(() => measureSheets!.length || 0);
+// const measureSheetsFilter = ref("");
+// const filteredData: Ref<Array<SelectJobDataType & SelectCustomerInformationType>> = computed(() => {
+//   console.log(data);
+//   if (measureSheetsFilter.value.length === 0) {
+//     return data;
+//   }
+//   return measureSheets?.filter(ms => {
+//     const jd = ms.jobData;
+//     const ci = ms.customerInformation;
+//     return jd.id!.toString().includes(measureSheetsFilter.value) ||
+//         jd.jobNumber!.includes(measureSheetsFilter.value) ||
+//         ci!.name?.toLowerCase().includes(measureSheetsFilter.value.toLowerCase())
+//   });
+// })
+// const handleJobIdSearch = (event: IonSearchbarCustomEvent<SearchbarChangeEventDetail>) => {
+//   if (event!.detail!.value !== undefined) {
+//     measureSheetsFilter.value = event!.detail!.value!.valueOf();
+//   } else {
+//     measureSheetsFilter.value = "";
+//   }
+// };
 
 // const ionRouter = useIonRouter();
 // const editCard = (index: number) => {
@@ -54,11 +72,11 @@ const handleJobIdSearch = (event: IonSearchbarCustomEvent<SearchbarChangeEventDe
 //   console.debug(`Edit card with id ${element.id}`);
 //   ionRouter.navigate({ path: `/measure-sheets/${element.id}` });
 // };
-const deleteCard = (index: number) => {
-  const element = filteredMeasureSheets.value![index];
-  console.debug(`Deleting card with id ${element.id}`);
-  filteredMeasureSheets.value!.splice(index, 1);
-};
+// const deleteCard = (index: number) => {
+//   const element = filteredMeasureSheets.value![index];
+//   console.debug(`Deleting card with id ${element.id}`);
+//   filteredMeasureSheets.value!.splice(index, 1);
+// };
 
 const presentDeleteModalAlert = async (index: number) => {
   console.debug(`Alert modal being created for card with index ${index}`);
@@ -76,7 +94,7 @@ const presentDeleteModalAlert = async (index: number) => {
       role: "Confirm",
       handler: () => {
         console.debug(`Confirm alert with data ${index}`);
-        deleteCard(index);
+        // deleteCard(index);
       }
     }],
   });

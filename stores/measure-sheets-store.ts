@@ -27,7 +27,7 @@ export const useMeasureSheetsStore = defineStore("measureSheetsStore", () => {
     //     return measureSheets.value.find(ms => ms.id === workInProgressMeasureSheetId.value) ||
     //         useFreshMeasureSheet().value;
     // });
-    async function retrieveMeasureSheet(id: number): Promise<MeasureSheet> {
+    async function retrieveMeasureSheet(id: number): Promise<any> {
         await $fetch(`/api/measure-sheets/${id}`, {
             method: "GET"
         }).then(res => {

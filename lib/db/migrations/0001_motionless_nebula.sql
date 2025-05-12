@@ -1,1 +1,0 @@
-ALTER TABLE `measure_sheet` DROP COLUMN `name`;
