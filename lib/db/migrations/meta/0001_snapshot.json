@@ -1,11 +1,11 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "b2d97641-8c2a-47df-92f7-70d611676b3e",
-  "prevId": "5ac953ca-1edc-41d3-b537-ab6da4ae724d",
+  "id": "d9b7a775-4b36-4397-ad8c-d13bfee46b62",
+  "prevId": "ef93d24f-500e-4a68-a719-58913227cad4",
   "tables": {
-    "measure_sheet": {
-      "name": "measure_sheet",
+    "job_data": {
+      "name": "job_data",
       "columns": {
         "id": {
           "name": "id",
@@ -21,6 +21,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "date": {
+          "name": "date",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "sales_rep": {
           "name": "sales_rep",
           "type": "text",
@@ -30,8 +37,8 @@
         }
       },
       "indexes": {
-        "measure_sheet_job_number_unique": {
-          "name": "measure_sheet_job_number_unique",
+        "job_data_job_number_unique": {
+          "name": "job_data_job_number_unique",
           "columns": [
             "job_number"
           ],
@@ -52,6 +59,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "street_number": {
           "name": "street_number",
@@ -137,8 +151,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "measure_sheet_id": {
-          "name": "measure_sheet_id",
+        "job_data_id": {
+          "name": "job_data_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -147,12 +161,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "customer_information_measure_sheet_id_measure_sheet_id_fk": {
-          "name": "customer_information_measure_sheet_id_measure_sheet_id_fk",
+        "customer_information_job_data_id_job_data_id_fk": {
+          "name": "customer_information_job_data_id_job_data_id_fk",
           "tableFrom": "customer_information",
-          "tableTo": "measure_sheet",
+          "tableTo": "job_data",
           "columnsFrom": [
-            "measure_sheet_id"
+            "job_data_id"
           ],
           "columnsTo": [
             "id"
@@ -171,7 +185,9 @@
   "_meta": {
     "schemas": {},
     "tables": {},
-    "columns": {}
+    "columns": {
+      "\"customer_information\".\"jobDataId\"": "\"customer_information\".\"job_data_id\""
+    }
   },
   "internal": {
     "indexes": {}

@@ -1,0 +1,2 @@
+ALTER TABLE `customer_information` RENAME COLUMN "jobDataId" TO "job_data_id";--> statement-breakpoint
+ALTER TABLE `customer_information` ALTER COLUMN "job_data_id" TO "job_data_id" integer REFERENCES job_data(id) ON DELETE cascade ON UPDATE no action;

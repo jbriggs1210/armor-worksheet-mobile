@@ -17,11 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  add,
-  chevronUpCircle,
-  home
-} from "ionicons/icons";
+import { add, chevronUpCircle, home } from "ionicons/icons";
 </script>
 
 <style scoped>
