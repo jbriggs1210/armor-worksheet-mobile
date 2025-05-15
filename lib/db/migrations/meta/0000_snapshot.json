@@ -1,11 +1,11 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5ac953ca-1edc-41d3-b537-ab6da4ae724d",
+  "id": "ef93d24f-500e-4a68-a719-58913227cad4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "measure_sheet": {
-      "name": "measure_sheet",
+    "job_data": {
+      "name": "job_data",
       "columns": {
         "id": {
           "name": "id",
@@ -21,9 +21,9 @@
           "notNull": true,
           "autoincrement": false
         },
-        "name": {
-          "name": "name",
-          "type": "text",
+        "date": {
+          "name": "date",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -37,8 +37,8 @@
         }
       },
       "indexes": {
-        "measure_sheet_job_number_unique": {
-          "name": "measure_sheet_job_number_unique",
+        "job_data_job_number_unique": {
+          "name": "job_data_job_number_unique",
           "columns": [
             "job_number"
           ],
@@ -59,6 +59,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "street_number": {
           "name": "street_number",
@@ -144,8 +151,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "measure_sheet_id": {
-          "name": "measure_sheet_id",
+        "jobDataId": {
+          "name": "jobDataId",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -154,12 +161,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "customer_information_measure_sheet_id_measure_sheet_id_fk": {
-          "name": "customer_information_measure_sheet_id_measure_sheet_id_fk",
+        "customer_information_jobDataId_job_data_id_fk": {
+          "name": "customer_information_jobDataId_job_data_id_fk",
           "tableFrom": "customer_information",
-          "tableTo": "measure_sheet",
+          "tableTo": "job_data",
           "columnsFrom": [
-            "measure_sheet_id"
+            "jobDataId"
           ],
           "columnsTo": [
             "id"

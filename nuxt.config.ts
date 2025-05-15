@@ -5,4 +5,10 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/ionic", "@pinia/nuxt"],
   ssr: false,
   css: ["~/assets/css/ionic.css"],
+  runtimeConfig: {
+    public: {
+      DB_URL: process.env.TURSO_CONNECTION_URL!,
+      DB_SECRET: process.env.TURSO_AUTH_TOKEN
+    }
+  }
 })

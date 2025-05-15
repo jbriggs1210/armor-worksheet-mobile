@@ -1,9 +1,16 @@
-import type { CustomerInformation } from "~/types/customer-information";
+import type {
+    InsertCustomerInformation,
+    InsertJobData,
+    SelectCustomerInformation,
+    SelectJobData
+} from "~/lib/db/schema";
 
-export interface MeasureSheet {
-    id: number | null;
-    jobNumber: string | null;
-    date: string | null;
-    salesRep: string | null;
-    customerInformation: CustomerInformation;
+export type InsertMeasureSheet = {
+    jobData: InsertJobData,
+    customerInformation: InsertCustomerInformation
+};
+
+export type SelectMeasureSheet = {
+    jobData: SelectJobData | InsertJobData,
+    customerInformation: SelectCustomerInformation | InsertCustomerInformation
 }
