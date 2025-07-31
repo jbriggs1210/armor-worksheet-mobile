@@ -15,6 +15,20 @@
       "when": 1747061537356,
       "tag": "0001_lowly_gideon",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1747408078074,
+      "tag": "0002_elite_lizard",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1747411497437,
+      "tag": "0003_clammy_toxin",
+      "breakpoints": true
     }
   ]
 }

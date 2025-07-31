@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 import { db } from "~/utils/db-adapter";
 import type { InsertMeasureSheet, SelectMeasureSheet } from "~/types/measure-sheet";
 
-export default function () {
+export default function() {
 
     return useState("useMeasureSheetsRepository", () => {
         return {
